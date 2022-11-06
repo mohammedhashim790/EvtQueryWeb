@@ -1,0 +1,185 @@
+
+<div class="center-body">
+
+  <span class="header">
+    <h2>Event Record - {{data.System.EventID}}</h2>
+  </span>
+
+  <span class="notebook">
+    <button class="tab"
+            (click)="infoOnDisplay = InfoOnDisplay.GENERAL"
+            [class.active]="infoOnDisplay == InfoOnDisplay.GENERAL">
+      General
+    </button>
+    <button class="tab"
+            (click)="infoOnDisplay = InfoOnDisplay.JSON_DETAIL"
+            [class.active]="infoOnDisplay == InfoOnDisplay.JSON_DETAIL">
+      Details
+    </button>
+  </span>
+
+  <div class="container" [ngSwitch]="infoOnDisplay">
+    <div
+      *ngSwitchCase="InfoOnDisplay.GENERAL"
+      class="tabview">
+      <span class="cred-manager">
+        <h4>
+          Subject
+        </h4>
+        <table>
+          <tr>
+            <th>
+              Security ID:
+            </th>
+            <td>
+              {{EventDataOf("SubjectUserName") + "\"" +EventDataOf("SubjectDomainName") ?? ""}}
+            </td>
+          </tr>
+
+          <tr>
+            <th>
+              Account Name:
+            </th>
+            <td>
+              {{EventDataOf("SubjectUserName")?? ""}}
+            </td>
+          </tr>
+
+          <tr>
+            <th>
+              Account Domain:
+            </th>
+            <td>
+              {{EventDataOf("SubjectDomainName") ?? ""}}
+            </td>
+          </tr>
+
+          <tr>
+            <th>
+              Logon ID:
+            </th>
+            <td>
+              {{EventDataOf("SubjectLogonId") ?? ""}}
+            </td>
+          </tr>
+
+          <tr>
+            <th>
+              Read Operation:
+            </th>
+            <td>
+              Enumerate Credentials
+            </td>
+          </tr>
+        </table>
+      </span>
+      <span class="logger">
+        <table>
+          <tr>
+            <th>
+              Log Name:
+            </th>
+            <td>
+              {{data.System.Channel ?? ""}}
+            </td>
+            <th>
+
+            </th>
+            <td>
+
+            </td>
+
+          </tr>
+
+          <tr>
+            <th>
+              Source:
+            </th>
+            <td>
+              {{data.System.Provider.Name}}
+            </td>
+            <th>
+              Logged:
+            </th>
+            <td>
+              {{data.System.TimeCreated.SystemTime | date:'dd-LL-yyyy hh:mm:ss'}}
+            </td>
+          </tr>
+          <tr>
+            <th>
+              Event ID:
+            </th>
+            <td>
+              {{data.System.EventID ?? ""}}
+            </td>
+            <th>
+              Task Category:
+            </th>
+            <td>
+              Value
+            </td>
+          </tr>
+          <tr>
+            <th>
+              Level:
+            </th>
+            <td>
+              {{data.RenderingInfo.Level ?? ""}}
+            </td>
+            <th>
+              Keywords:
+            </th>
+            <td>
+              {{data.RenderingInfo.Keywords.Keyword ?? ""}}
+            </td>
+          </tr>
+          <tr>
+            <th>
+              User:
+            </th>
+            <td>
+              N/A
+            </td>
+            <th>
+              Computer:
+            </th>
+            <td>
+              {{data.System.Computer}}
+            </td>
+          </tr>
+
+          <tr>
+            <th>
+              Op Code:
+            </th>
+            <td>
+              {{data.RenderingInfo.Opcode ?? ""}}
+            </td>
+            <th>
+            </th>
+            <td>
+            </td>
+
+          </tr>
+
+
+        </table>
+      </span>
+    </div>
+
+    <div
+      #detailView
+      *ngSwitchCase="InfoOnDisplay.JSON_DETAIL"
+      class="tabview">
+      <pre class="data-json">
+        {{data | JSONStringify}}
+      </pre>
+    </div>
+  </div>
+  <span class="action-buttons">
+    <button (click)="onClose.emit()">
+      Close
+    </button>
+  </span>
+</div>
+

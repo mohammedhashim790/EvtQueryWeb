@@ -1,0 +1,91 @@
+
+<app-alert-dialog
+  *ngIf="showDialogParams!=undefined"
+  [data]="showDialogParams"
+  (onClose)="showDialogParams = undefined"
+></app-alert-dialog>
+
+
+<span style="
+width: 100%;
+padding: 2%;
+display: flex;
+flex-direction: row;
+justify-content: space-evenly">
+  <h3>
+    ChannelName : {{totalEntries}} Entries available
+    <br>
+    {{pageEntries}} Records in view
+  </h3>
+  <h3>
+<!--    User Session : {{EventDataOf("SubjectUserName")}}-->
+    <br>
+    Last Fetch At : {{Now | date:'dd-LL-yyyy hh:mm:ss'}}
+  </h3>
+
+  <span style="display: flex;flex-direction: column;width: 100px;gap: 15px">
+    <button (click)="GetEvents()">
+      Get
+    </button>
+    <button (click)="RefreshEvents()">
+      Refresh
+    </button>
+  </span>
+
+</span>
+<div class="body">
+  <span class="header">
+    <h3>Evt Query</h3>
+  </span>
+  <table>
+    <tr>
+      <th>
+        EventRecordID
+      </th>
+      <th>
+        Keywords
+      </th>
+      <th>
+        Date and Time
+      </th>
+      <th>
+        Source
+      </th>
+      <th>
+        Event ID
+      </th>
+    </tr>
+    <tr *ngFor="let row of data" (dblclick)="ShowDialogParams(row)">
+      <td>
+        {{row.System.EventRecordID}}
+      </td>
+      <td>
+        {{row.RenderingInfo.Keywords.Keyword ?? ""}}
+      </td>
+      <td>
+        {{Date(row.System.TimeCreated.SystemTime)}}
+      </td>
+      <td>
+        {{row.System.Provider.Name}}
+      </td>
+      <td>
+        {{row.System.EventID}}
+      </td>
+    </tr>
+  </table>
+</div>
+<span class="paginator">
+  <button class="action"
+          [disabled]="currentPage < 1"
+          (click)="PrevSlide()"><</button>
+  <input class="current" type="number"
+         [value]="currentPage"
+         (keydown.enter)="OnPressEnter($event)"
+         />
+  <label>
+    of {{TotalPageNumber}}
+  </label>
+  <button class="action" (click)="NextSlide()"> > </button>
+</span>
+
+

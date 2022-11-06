@@ -1,0 +1,85 @@
+:host{
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+.body{
+  width: 95%;
+  min-height: 80%;
+  height: auto;
+  max-height: 80%;
+  max-width: 95%;
+  overflow: auto;
+  margin: auto auto;
+  flex-direction: column;
+  display: flex;
+  border: 2px solid;
+}
+.body .header{
+  width: 100%;
+  justify-content: center;
+  display: flex;
+  background-color: lightgray;
+
+}
+.body table{
+  width: 100%;
+  height: auto;
+  overflow: auto;
+  table-layout: auto;
+}
+
+
+table th:hover{
+  background-color: lightgray;
+  cursor: pointer;
+  user-select: none;
+}
+
+table tr:not(:first-child):hover{
+  background-color: lightgray;
+  cursor: pointer;
+}
+
+table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+
+.paginator{
+
+  width: 100%;
+  height: auto;
+  display: flex;
+  margin: auto;
+  /*margin-left: auto;*/
+  /*margin-right: 10%;*/
+  flex-direction: row;
+  justify-content: center;
+}
+.paginator .action{
+  width: 25px;
+  height: 25px;
+  color: black;
+  justify-content: center;
+  margin: auto 5%;
+}
+
+.paginator .current{
+  width: 25px;
+  height: 25px;
+}
+.paginator label{
+  width: max-content;
+  margin: auto 2%;
+}
+.paginator input[type="number"]{
+  -moz-appearance: textfield;
+}
+.paginator input::-webkit-outer-spin-button,
+.paginator input::-webkit-inner-spin-button
+{
+  -webkit-appearance: none;
+  margin: 0;
+}

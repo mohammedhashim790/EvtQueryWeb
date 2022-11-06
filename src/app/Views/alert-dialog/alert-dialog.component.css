@@ -1,0 +1,121 @@
+:host{
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: rgba(0,0,0,0.18);
+  z-index: 99;
+  display: flex;
+  justify-content: center;
+  place-items: center;
+}
+
+*{
+  position: relative;
+  display: flex;
+}
+
+.center-body{
+  width: 80%;
+  min-height: 20%;
+  height: auto;
+  /*max-height: 70%;*/
+  background-color: white;
+  padding: 0 2%;
+  display: flex;
+  flex-direction: column;
+}
+.header{
+  width: 100%;
+  margin: 2% 0;
+}
+
+.container{
+  width: 100%;
+}
+
+.notebook{
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+
+}
+.notebook .tab{
+  width: max-content;
+  padding: 5px;
+  margin: 0 2%;
+  text-align: center;
+  color: black;
+  background-color: transparent;
+  cursor: pointer;
+}
+.notebook .active{
+  background-color: black;
+  color: white;
+}
+
+.tabview{
+  width: 100%;
+  min-height: 100px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  place-items: center;
+  margin: 0 auto;
+}
+.tabview .cred-manager{
+  width: 96%;
+  min-height: 100px;
+  background-color: slategrey;
+  max-height:150px;
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
+}
+.tabview .cred-manager h4{
+  margin: 2%;
+}
+.tabview .logger{
+  width: 100%;
+  justify-content: center;
+  display: flex;
+  place-items: center;
+}
+.tabview .cred-manager table{
+  width: 80%;
+}
+.tabview table{
+  width: 80%;
+  margin: 2px auto;
+  display: table;
+}
+.tabview  table th,.tabview  table td{
+  width: 100%;
+}
+.cred-manager table{
+  width: 100%;
+}
+.data-json{
+  width: 90%;
+  min-height: 100px;
+  height: auto;
+  max-height: 250px;
+  overflow: auto;
+  /*padding: 4%;*/
+  /*padding-left: 0;*/
+}
+.action-buttons {
+  display: flex;
+  flex-direction: row-reverse;
+  width: 90%;
+  margin: 2% auto;
+}
+.action-buttons button{
+  width: 75px;
+  height: 25px;
+  display: flex;
+  justify-content: center;
+  place-items: center;
+}
