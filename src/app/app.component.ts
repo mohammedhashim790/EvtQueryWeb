@@ -98,6 +98,7 @@ export class AppComponent {
   data:Array<EventParams> = [];
   pageEntries = -1;
   totalEntries: number = -1;
+  empty: boolean = false;
 
   currentPage:number = 0;
   private head!: EventParams;
@@ -133,22 +134,29 @@ export class AppComponent {
     private datePipe:DatePipe,
     private api:EvtQueryService) {
 
+    this.Get();
+    this.api.TotalQueriesIn(this.security).toPromise().then((res)=>{
+      this.totalEntries = res["Security"];
+    }).catch((err)=>{
+      printer(err);
+    })
+  }
+
+  Get(){
     this.api.QueryList().toPromise().then((res)=>{
       if(res){
         printer(res);
         this.data = res;
         this.head = this.data[0];
         this.pageEntries = this.data.length;
+        if(this.data.length == 0){
+          this.empty = true;
+        }
         // this.currentPage++;
       }
     }).catch((error)=>{
       printer(error);
     });
-    this.api.TotalQueriesIn(this.security).toPromise().then((res)=>{
-      this.totalEntries = res["Security"];
-    }).catch((err)=>{
-      printer(err);
-    })
   }
 
   NextSlide(){
@@ -212,6 +220,7 @@ export class AppComponent {
   }
 
   GetEvents() {
+    this.empty = false;
     this.api.QueryList().toPromise().then((res)=>{
       if(res){
         printer(res);
@@ -226,12 +235,13 @@ export class AppComponent {
   }
 
   RefreshEvents() {
-
+    this.empty = false;
     if(this.head == undefined){
       this.api.RefreshArray(this.security).toPromise().then((res)=>{
         if(res){
           printer(res);
           this.data = res;
+          this.empty =( this.data.length == 0)
           // this.pageEntries = this.data.length;
           // this.currentPage++;
         }
@@ -249,6 +259,7 @@ export class AppComponent {
       this.api.NextChannelsFrom(this.security,recordId).toPromise().then((res)=>{
         printer("Response");
         printer(res);
+
       }).catch((error)=>{
         printer("Error");
         printer(error)

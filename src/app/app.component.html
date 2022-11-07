@@ -37,7 +37,7 @@ justify-content: space-evenly">
   <span class="header">
     <h3>Evt Query</h3>
   </span>
-  <table>
+  <table *ngIf="data.length!=0;else showLoader">
     <tr>
       <th>
         EventRecordID
@@ -73,6 +73,16 @@ justify-content: space-evenly">
       </td>
     </tr>
   </table>
+  <ng-template #showLoader>
+    <span *ngIf="!empty;else emptyC" class="spinner">
+
+    </span>
+    <ng-template #emptyC>
+      <span style="display: flex;margin: auto">
+        No Contents are available. Click refresh to reload
+      </span>
+    </ng-template>
+  </ng-template>
 </div>
 <span class="paginator">
   <button class="action"
